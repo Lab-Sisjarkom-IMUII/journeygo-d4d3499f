@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Trash2, Plane, Sparkles, Calendar, Users } from "lucide-react";
+import { Trash2, Plane, Sparkles, Calendar, Users, MapPin } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import AIRecommendationDisplay from "@/components/AIRecommendationDisplay";
+import MapView from "@/components/MapView";
 
 interface Plan {
   id: string;
@@ -286,47 +288,37 @@ const Rencana = () => {
               </Button>
 
               {aiRecommendation && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="border border-primary/20 rounded-lg p-4 bg-primary/5"
-                >
-                  <h3 className="font-semibold text-lg mb-3 text-primary">Rekomendasi AI:</h3>
-                  
-                  {aiRecommendation.costBreakdown && (
-                    <div className="mb-4">
-                      <p className="text-sm text-muted-foreground mb-2">Estimasi Biaya Total:</p>
-                      <p className="text-2xl font-bold text-primary">
-                        {formatRupiah(aiRecommendation.costBreakdown.total)}
-                      </p>
-                    </div>
-                  )}
-
-                  {aiRecommendation.tips && aiRecommendation.tips.length > 0 && (
-                    <div className="mb-3">
-                      <p className="font-semibold mb-2 text-sm">Tips:</p>
-                      <ul className="text-sm text-muted-foreground space-y-1">
-                        {aiRecommendation.tips.slice(0, 3).map((tip: string, index: number) => (
-                          <li key={index}>• {tip}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {aiRecommendation.alternatives && aiRecommendation.alternatives.length > 0 && (
-                    <div>
-                      <p className="font-semibold mb-2 text-sm">Alternatif Destinasi:</p>
-                      <div className="space-y-2">
-                        {aiRecommendation.alternatives.slice(0, 2).map((alt: any, index: number) => (
-                          <div key={index} className="text-sm bg-background/50 p-2 rounded">
-                            <p className="font-medium">{alt.destination}</p>
-                            <p className="text-xs text-muted-foreground">{alt.reason}</p>
-                          </div>
-                        ))}
+                <div className="space-y-6">
+                  {/* Peta Interaktif */}
+                  {aiRecommendation.itinerary && aiRecommendation.itinerary.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="space-y-3"
+                    >
+                      <div className="flex items-center gap-2">
+                        <MapPin className="text-primary" size={24} />
+                        <h3 className="font-bold text-xl text-primary">Peta Lokasi Wisata</h3>
                       </div>
-                    </div>
+                      <MapView
+                        locations={
+                          aiRecommendation.itinerary
+                            .flatMap((day: any) =>
+                              day.activities
+                                .filter((activity: any) => activity.coordinates)
+                                .map((activity: any) => ({
+                                  name: activity.location,
+                                  coordinates: activity.coordinates,
+                                  description: `${day.title || `Hari ${day.day}`} - ${activity.time}`,
+                                }))
+                            )
+                        }
+                      />
+                    </motion.div>
                   )}
-                </motion.div>
+                  
+                  <AIRecommendationDisplay recommendation={aiRecommendation} />
+                </div>
               )}
 
               <Button type="submit" className="w-full btn-primary" disabled={!aiRecommendation}>

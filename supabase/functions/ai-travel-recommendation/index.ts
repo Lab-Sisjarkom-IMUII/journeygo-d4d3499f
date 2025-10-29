@@ -24,20 +24,44 @@ serve(async (req) => {
     let userPrompt = '';
 
     if (type === 'recommendation') {
-      systemPrompt = `Kamu adalah travel planner AI profesional yang ahli dalam merencanakan liburan.
+      systemPrompt = `Kamu adalah Travel Planner AI profesional yang ahli dalam merencanakan liburan.
 Berikan rekomendasi dalam format JSON dengan struktur berikut:
 {
   "itinerary": [
     {
       "day": 1,
+      "title": "Hari 1: Tiba & Eksplorasi Awal",
       "activities": [
         {
-          "time": "09:00",
+          "time": "Pagi (09:00 - 12:00)",
           "location": "Nama Tempat",
-          "activity": "Aktivitas",
-          "estimatedCost": 100000
+          "activity": "Deskripsi aktivitas detail",
+          "estimatedCost": 100000,
+          "coordinates": [longitude, latitude]
+        },
+        {
+          "time": "Siang (12:00 - 15:00)",
+          "location": "Nama Tempat",
+          "activity": "Deskripsi aktivitas detail",
+          "estimatedCost": 50000,
+          "coordinates": [longitude, latitude]
+        },
+        {
+          "time": "Sore (15:00 - 18:00)",
+          "location": "Nama Tempat",
+          "activity": "Deskripsi aktivitas detail",
+          "estimatedCost": 75000,
+          "coordinates": [longitude, latitude]
+        },
+        {
+          "time": "Malam (18:00 - 22:00)",
+          "location": "Nama Tempat",
+          "activity": "Deskripsi aktivitas detail",
+          "estimatedCost": 150000,
+          "coordinates": [longitude, latitude]
         }
-      ]
+      ],
+      "dayTotal": 375000
     }
   ],
   "costBreakdown": {
@@ -47,15 +71,34 @@ Berikan rekomendasi dalam format JSON dengan struktur berikut:
     "activities": 1000000,
     "total": 8000000
   },
-  "tips": ["Tip 1", "Tip 2", "Tip 3"],
+  "tips": [
+    "Tip perjalanan spesifik 1",
+    "Tip perjalanan spesifik 2",
+    "Tip perjalanan spesifik 3"
+  ],
+  "localFood": [
+    "Rekomendasi kuliner lokal 1",
+    "Rekomendasi kuliner lokal 2",
+    "Rekomendasi kuliner lokal 3"
+  ],
+  "uniqueActivities": [
+    "Aktivitas unik & menarik 1",
+    "Aktivitas unik & menarik 2"
+  ],
   "alternatives": [
     {
-      "destination": "Nama Destinasi",
+      "destination": "Nama Destinasi Alternatif",
       "estimatedCost": 5000000,
-      "reason": "Alasan mengapa alternatif ini menarik"
+      "reason": "Alasan mengapa alternatif ini menarik dan cocok"
     }
   ]
-}`;
+}
+
+PENTING: 
+- Berikan koordinat GPS yang akurat untuk setiap lokasi dalam format [longitude, latitude]
+- Buat itinerary yang DETAIL dan KOMUNIKATIF untuk setiap waktu (Pagi, Siang, Sore, Malam)
+- Estimasi biaya harus realistis dalam Rupiah
+- Sesuaikan rekomendasi dengan gaya liburan yang dipilih`;
 
       userPrompt = `Pengguna ingin berlibur ke ${destination} selama ${duration} hari untuk ${people} orang, dengan gaya liburan ${style}.
       
@@ -64,7 +107,25 @@ Gaya liburan:
 - Standar: budget menengah, hotel 3 bintang, mix antara restoran dan warung, transportasi campuran
 - Premium: budget tinggi, hotel 4-5 bintang, restoran bagus, transportasi private
 
-Berikan rekomendasi lengkap dalam format JSON.`;
+Buatkan itinerary yang DETAIL dalam format rundown per hari seperti ini:
+
+🗓️ Hari 1: [Judul Hari]
+- Pagi (09:00 - 12:00): [Aktivitas detail]
+- Siang (12:00 - 15:00): [Aktivitas detail]
+- Sore (15:00 - 18:00): [Aktivitas detail]
+- Malam (18:00 - 22:00): [Aktivitas detail]
+💰 Estimasi biaya hari ini: Rp...
+
+Lakukan hal yang sama untuk semua ${duration} hari.
+
+Akhiri dengan:
+• Total estimasi biaya keseluruhan (breakdown: transportasi, akomodasi, makanan, aktivitas)
+• Rekomendasi kuliner lokal yang wajib dicoba
+• Aktivitas unik & menarik di destinasi ini
+• Tips perjalanan sesuai gaya liburan
+• Alternatif destinasi serupa
+
+Berikan rekomendasi lengkap dalam format JSON yang rapi, komunikatif, dan mudah dibaca.`;
     } else if (type === 'suggestion') {
       systemPrompt = `Kamu adalah AI assistant yang memberikan saran destinasi berdasarkan preferensi user.
 Berikan 3 rekomendasi destinasi dalam format JSON:
