@@ -1,0 +1,18 @@
+{
+  "name": "JourneyGo",
+  "description": "A travel planning and recommendation application",
+  "packageId": "com.journeygo.app",
+  "url": "https://journeygo.app",
+  "scope": "/",
+  "startUrl": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "dir": "ltr",
+  "lang": "id",
+  "categories": ["travel", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": [],
+  "preferRelatedApplications": false,
+  "relatedApplications": []
+}
