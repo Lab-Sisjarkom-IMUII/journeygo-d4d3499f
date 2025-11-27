@@ -6,22 +6,44 @@
     <title>JourneyGo - AI Smart Travel Planner</title>
     <meta name="description" content="Plan your perfect journey with AI-powered travel planning and budget management" />
     <meta name="author" content="JourneyGo" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Open Graph -->
     <meta property="og:title" content="JourneyGo - AI Smart Travel Planner" />
     <meta property="og:description" content="Plan your perfect journey with AI-powered travel planning and budget management" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!-- ✅ Tambahkan manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Warna theme (opsional tapi bagus untuk PWA) -->
+    <meta name="theme-color" content="#4CAF50" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ✅ Tambahkan service worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js")
+            .then(() => console.log("SW registered"))
+            .catch(err => console.log("SW error:", err));
+        });
+      }
+    </script>
+
   </body>
 </html>
