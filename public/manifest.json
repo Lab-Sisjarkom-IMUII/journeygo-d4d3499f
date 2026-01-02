@@ -1,12 +1,16 @@
 {
-  "name": "JourneyEgoe",
-  "short_name": "Journey",
-  "start_url": "https://journeygo.app/rencana",
+  "name": "JourneyGo – AI Travel Planner",
+  "short_name": "JourneyGo",
+  "description": "Rencanakan perjalanan pintar dengan rekomendasi AI, budgeting, dan itinerary interaktif.",
+  "start_url": "/rencana?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "orientation": "portrait-primary",
+  "lang": "id",
+  "categories": ["travel", "productivity"],
   "icons": [
     {
       "src": "/icons/icon-32.png",
@@ -45,10 +49,43 @@
       "purpose": "any"
     },
     {
+      "src": "/icons/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "shortcuts": [
+    {
+      "name": "Lihat Dashboard",
+      "short_name": "Dashboard",
+      "description": "Lompat langsung ke dasbor perencanaan.",
+      "url": "/dashboard"
+    },
+    {
+      "name": "Mulai Rencana Baru",
+      "short_name": "Rencana",
+      "description": "Buka halaman perencanaan perjalanan.",
+      "url": "/rencana"
+    },
+    {
+      "name": "Bandingkan Destinasi",
+      "short_name": "Bandingkan",
+      "description": "Bandingkan destinasi dan budget.",
+      "url": "/bandingkan"
+    }
+  ],
+  "prefer_related_applications": false
 }

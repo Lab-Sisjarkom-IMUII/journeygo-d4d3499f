@@ -1,0 +1,11 @@
+{
+  "name": "JourneyGo",
+  "framework": "react",
+  "language": "typescript",
+  "buildCommand": "vite build",
+  "startCommand": "npm run dev",
+  "domain": "journeygo",
+  "email": "24523098@students.uii.ac.id",
+  "secretKey": "imuii_279ddf980875302d2a0ddbbc53cce62420b652b22a6ceab218ecafb44730d246",
+  "repoUrl": "https://github.com/Lab-Sisjarkom-IMUII/journeygo-d4d3499f.git"
+}

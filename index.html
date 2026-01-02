@@ -45,16 +45,7 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- ✅ Tambahkan service worker -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/service-worker.js")
-            .then(() => console.log("SW registered"))
-            .catch(err => console.log("SW error:", err));
-        });
-      }
-    </script>
+    <!-- Service worker registration moved to `src/main.tsx` -->
 
   </body>
 </html>
